@@ -21,6 +21,7 @@ export const useGithubApi = ({ searchType, searchQuery }: Props) => {
       const dataFound = response.data;
       return dataFound;
     },
+    refetchOnWindowFocus: false,
   });
 
   return { data, isLoading, error, isError };
