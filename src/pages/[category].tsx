@@ -18,7 +18,7 @@ export default function Category({ category, query }: Props) {
   });
 
   return (
-    <div className="grid grid-cols-5 gap-3">
+    <div className="grid grid-cols-3 gap-3">
       {category === "users"
         ? data?.items.map((user) => {
             return (
@@ -38,7 +38,7 @@ export default function Category({ category, query }: Props) {
                 repoDescription={repo.description}
                 repoTopics={repo.topics}
                 repoStars={repo.stargazers_count}
-                repoCreationDate={repo.created_at}
+                repoUpdateDate={repo.updated_at}
               />
             );
           })}

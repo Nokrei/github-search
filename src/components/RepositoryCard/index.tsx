@@ -1,30 +1,42 @@
-import Image from "next/image";
+import { AiOutlineStar } from "react-icons/ai";
 
 type Props = {
   repoName: string;
   repoDescription: string;
   repoTopics: string[];
   repoStars: number;
-  repoCreationDate: string;
+  repoUpdateDate: string;
 };
 export const RepositoryCard = ({
   repoName,
   repoDescription,
   repoTopics,
   repoStars,
-  repoCreationDate,
+  repoUpdateDate,
 }: Props) => {
   return (
-    <div className="w-80 max-w-md rounded bg-white p-2 shadow">
-      <h2>{repoName}</h2>
-      <p>{repoDescription}</p>
-      <div>
+    <div className="w-full rounded bg-white p-2 shadow">
+      <h2 className="text-xl text-blue-500">{repoName}</h2>
+      <p className="break-words">{repoDescription}</p>
+      <div className="flex flex-wrap gap-1">
         {repoTopics.map((topic) => {
-          return <span key={topic}>{topic}</span>;
+          return (
+            <span
+              className="w-10 min-w-fit rounded-2xl bg-sky-200 p-1 px-2 text-center text-sm text-sky-600"
+              key={topic}
+            >
+              {topic}
+            </span>
+          );
         })}
       </div>
-      <span>{repoStars}</span>
-      <span>{repoCreationDate}</span>
+      <div className="flex gap-2">
+        <div className="flex items-center">
+          <AiOutlineStar size={20} />
+          {repoStars}
+        </div>
+        <span>{new Date(repoUpdateDate).toDateString()}</span>
+      </div>
     </div>
   );
 };
