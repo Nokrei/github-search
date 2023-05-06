@@ -1,10 +1,18 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useRouter } from "next/router";
+import { useDebounce } from "use-debounce";
 import { AiFillGithub } from "react-icons/ai";
 import Layout from "@/components/Layout";
 
 export default function Home() {
-  const [inputValue, setInputValue] = useState("");
-  const [selectValue, setSelectValue] = useState("");
+  const [queryValue, setQueryValue] = useState("");
+  const [category, setCategory] = useState("users");
+  const [debauncedQuery] = useDebounce(queryValue, 1000);
+  const router = useRouter();
+  useEffect(() => {
+    debauncedQuery && router.push(`/${category}?query=${debauncedQuery}`);
+  }, [debauncedQuery, router, category]);
+
   return (
     <Layout>
       <div className="flex justify-center">
@@ -24,14 +32,14 @@ export default function Home() {
             <input
               type="seaarch"
               className="w-full border"
-              value={inputValue}
-              onChange={(e) => setInputValue(e.target.value)}
+              value={queryValue}
+              onChange={(e) => setQueryValue(e.target.value)}
             />
             <select
               name="options"
               className="border"
-              value={selectValue}
-              onChange={(e) => setSelectValue(e.target.value)}
+              value={category}
+              onChange={(e) => setCategory(e.target.value)}
             >
               <option value="users">Users</option>
               <option value="repositories">Repositories</option>
