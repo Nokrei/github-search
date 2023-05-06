@@ -1,6 +1,7 @@
+import { useState } from "react";
+import { useRouter } from "next/router";
 import { NextPageContext } from "next/types";
 import { useGithubApi } from "@/hooks/useGithubApi";
-import { useRouter } from "next/router";
 import { UserCard } from "@/components/UserCard";
 import { RepositoryCard } from "@/components/RepositoryCard";
 import Layout from "@/components/Layout";
@@ -9,19 +10,22 @@ import { Searcher } from "@/components/Searcher";
 type Props = {
   category: string;
   query: string;
+  page: number;
 };
 
-export default function Category({ category, query }: Props) {
+export default function Category({}: Props) {
+  const [pageNumber, setPageNumber] = useState(1);
   const router = useRouter();
-
+  const { query, category, page } = router.query;
   const { data } = useGithubApi({
-    searchType: category,
-    searchQuery: query,
+    searchType: category as string,
+    searchQuery: query as string,
+    page: pageNumber,
   });
 
   return (
     <Layout>
-      <Searcher />
+      <Searcher page={pageNumber} />
       <div className="grid grid-cols-3 gap-3">
         {category === "users"
           ? data?.items.map((user) => {
@@ -47,12 +51,14 @@ export default function Category({ category, query }: Props) {
               );
             })}
       </div>
+      {pageNumber}
+      <button onClick={() => setPageNumber(pageNumber + 1)}>Next</button>
     </Layout>
   );
 }
 
-export async function getServerSideProps(context: NextPageContext) {
-  const { category, query } = context.query;
+// export async function getServerSideProps(context: NextPageContext) {
+//   const { category, query, page } = context.query;
 
-  return { props: { category: category, query: query } };
-}
+//   return { props: { category, query, page } };
+// }

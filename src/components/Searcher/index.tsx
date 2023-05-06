@@ -2,14 +2,20 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { useDebounce } from "use-debounce";
 import { AiFillGithub } from "react-icons/ai";
-export const Searcher = () => {
+
+type Props = {
+  page?: number;
+};
+
+export const Searcher = ({ page }: Props) => {
   const [queryValue, setQueryValue] = useState("");
   const [category, setCategory] = useState("users");
   const [debauncedQuery] = useDebounce(queryValue, 1000);
   const router = useRouter();
   useEffect(() => {
-    debauncedQuery && router.push(`/${category}?query=${debauncedQuery}`);
-  }, [debauncedQuery]);
+    debauncedQuery &&
+      router.push(`/${category}?query=${debauncedQuery}&page=${page}`);
+  }, [debauncedQuery, page]);
 
   return (
     <div>
