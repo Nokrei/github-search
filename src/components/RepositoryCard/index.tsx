@@ -15,7 +15,7 @@ export const RepositoryCard = ({
   repoUpdateDate,
 }: Props) => {
   return (
-    <div className="w-full rounded bg-white p-2 shadow">
+    <div className="h-56 w-full rounded bg-white p-2 shadow">
       <h2 className="text-xl text-blue-500">{repoName}</h2>
       <p className="break-words">{repoDescription}</p>
       <div className="flex flex-wrap gap-1">

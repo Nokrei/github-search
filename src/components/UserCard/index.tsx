@@ -7,7 +7,7 @@ type Props = {
 };
 export const UserCard = ({ userName, userAvatar, userLink }: Props) => {
   return (
-    <div className="w-80 max-w-md rounded bg-white p-2 shadow">
+    <div className="h-40 w-full rounded bg-white p-2 shadow">
       <div className="flex gap-2">
         <Image
           width={20}

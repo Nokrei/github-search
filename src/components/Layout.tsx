@@ -17,7 +17,7 @@ export default function Layout({ title, description, children }: Props) {
       </Head>
       <div className="flex h-screen flex-col justify-between">
         <Header />
-        <main>{children}</main>
+        <main className="p-10">{children}</main>
         <Footer />
       </div>
     </>

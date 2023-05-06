@@ -1,8 +1,24 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 
+type User = {
+  id: number;
+  avatar_url: string;
+  login: string;
+  html_url: string;
+};
+
+type Repository = {
+  id: number;
+  name: string;
+  description: string;
+  topics: string[];
+  stargazers_count: number;
+  updated_at: string;
+};
+
 type Data = {
-  user: string;
+  items: User[] & Repository[];
 };
 
 type Props = {
