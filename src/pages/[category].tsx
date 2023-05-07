@@ -17,20 +17,29 @@ export default function Category({}: Props) {
   const [pageNumber, setPageNumber] = useState(1);
   const router = useRouter();
   const { query, category } = router.query;
-  const { data, isLoading, isPreviousData, isError, error } = useGithubApi({
-    searchType: category as string,
-    searchQuery: query as string,
-    page: pageNumber,
-  });
+  const resultsPerPage = 9;
+  const { data, isLoading, isPreviousData, isFetching, isError, error } =
+    useGithubApi({
+      searchType: category as string,
+      searchQuery: query as string,
+      page: pageNumber,
+      resultsPerPage: resultsPerPage,
+    });
+  const totalPages = Math.floor(
+    (data?.total_count + resultsPerPage - 1) / resultsPerPage
+  );
+  console.log(totalPages);
 
   return (
     <Layout>
       <Searcher page={pageNumber} />
       {isError && error?.message}
       {isLoading ? (
-        <p>Loading...</p>
+        <div className="flex flex-1 items-center justify-center">
+          <p className="text-xl font-semibold">Loading...</p>
+        </div>
       ) : (
-        <div className="grid grid-cols-1 gap-3 py-5 lg:grid-cols-2 xl:grid-cols-3">
+        <div className="grid flex-1 grid-cols-1 gap-3 py-5 lg:grid-cols-2 xl:grid-cols-3">
           {category === "users"
             ? data?.items.map((user) => {
                 return (
@@ -73,7 +82,7 @@ export default function Category({}: Props) {
               setPageNumber((old) => old + 1);
             }
           }}
-          disabled={isPreviousData}
+          disabled={isPreviousData || pageNumber >= totalPages}
         >
           Next
         </button>

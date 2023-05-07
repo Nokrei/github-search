@@ -17,7 +17,7 @@ export default function Layout({ title, description, children }: Props) {
       </Head>
       <div className="flex h-screen flex-col ">
         <Header />
-        <main className="flex-1 p-10">{children}</main>
+        <main className="flex flex-1 flex-col p-10">{children}</main>
         <Footer />
       </div>
     </>

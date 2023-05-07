@@ -9,13 +9,16 @@ export const UserCard = ({ userName, userAvatar, userLink }: Props) => {
   return (
     <div className="h-40 w-full rounded bg-white p-2 shadow">
       <div className="flex gap-2">
-        <Image
-          width={20}
-          height={20}
-          src={userAvatar}
-          alt={`${userName} avatar`}
-          className="rounded-full"
-        />
+        {userAvatar && (
+          <Image
+            width={20}
+            height={20}
+            src={userAvatar}
+            alt={`${userName} avatar`}
+            className="rounded-full"
+          />
+        )}
+
         <a
           href={userLink}
           target="_blank"
