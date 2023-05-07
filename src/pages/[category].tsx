@@ -26,7 +26,7 @@ export default function Category() {
   );
 
   return (
-    <Layout>
+    <Layout title={`Github Search | ${category} | ${query}`}>
       <Searcher page={pageNumber} />
       {isError && error?.message}
       {isLoading ? (
