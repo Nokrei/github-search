@@ -6,6 +6,7 @@ import { UserCard } from "@/components/UserCard";
 import { RepositoryCard } from "@/components/RepositoryCard";
 import Layout from "@/components/Layout";
 import { Searcher } from "@/components/Searcher";
+import { Button } from "@/components/button";
 
 type Props = {
   category: string;
@@ -14,21 +15,22 @@ type Props = {
 };
 
 export default function Category({}: Props) {
-  const [pageNumber, setPageNumber] = useState(1);
   const router = useRouter();
-  const { query, category } = router.query;
+
+  const [pageNumber, setPageNumber] = useState(1);
   const resultsPerPage = 9;
-  const { data, isLoading, isPreviousData, isFetching, isError, error } =
-    useGithubApi({
-      searchType: category as string,
-      searchQuery: query as string,
-      page: pageNumber,
-      resultsPerPage: resultsPerPage,
-    });
+
+  const { query, category } = router.query;
+
+  const { data, isLoading, isPreviousData, isError, error } = useGithubApi({
+    searchType: category as string,
+    searchQuery: query as string,
+    page: pageNumber,
+    resultsPerPage: resultsPerPage,
+  });
   const totalPages = Math.floor(
     (data?.total_count + resultsPerPage - 1) / resultsPerPage
   );
-  console.log(totalPages);
 
   return (
     <Layout>
@@ -66,26 +68,22 @@ export default function Category({}: Props) {
         </div>
       )}
       <div className="flex justify-center gap-3">
-        <button
-          className="rounded bg-blue-600 p-2 px-3  text-white duration-100 hover:bg-blue-500 disabled:bg-blue-200"
-          onClick={() => {
+        <Button
+          buttonText="Prev"
+          onButtonClick={() => {
             setPageNumber((old) => Math.max(old - 1, 0));
           }}
-          disabled={pageNumber === 1}
-        >
-          Prev
-        </button>
-        <button
-          className="rounded bg-blue-600 p-2 px-3 text-white  duration-100 hover:bg-blue-500 disabled:bg-blue-200"
-          onClick={() => {
+          isButtonDisabled={pageNumber === -1}
+        />
+        <Button
+          buttonText="Next"
+          onButtonClick={() => {
             if (!isPreviousData) {
               setPageNumber((old) => old + 1);
             }
           }}
-          disabled={isPreviousData || pageNumber >= totalPages}
-        >
-          Next
-        </button>
+          isButtonDisabled={isPreviousData || pageNumber >= totalPages}
+        />
       </div>
     </Layout>
   );

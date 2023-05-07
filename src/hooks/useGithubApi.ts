@@ -37,27 +37,29 @@ export const useGithubApi = ({
   page,
   resultsPerPage,
 }: Props) => {
-  const { data, isLoading, isError, error, isFetching, isPreviousData } =
-    useQuery<Data, Error>({
-      queryKey: ["githubApi", searchQuery, page],
-      queryFn: async () => {
-        console.log(`Fetching GitHub data for ${searchType}`);
-        const response = await axios.get(
-          `https://api.github.com/search/${searchType}?q=${searchQuery}&per_page=${resultsPerPage}&page=${page}`,
-          {
-            headers: {
-              Authorization: `token ${GITHUB_TOKEN}`,
-            },
-          }
-        );
-        const dataFound = response.data;
-        console.log({ dataFound });
+  const { data, isLoading, isError, error, isPreviousData } = useQuery<
+    Data,
+    Error
+  >({
+    queryKey: ["githubApi", searchQuery, page],
+    queryFn: async () => {
+      console.log(`Fetching GitHub data for ${searchType}`);
+      const response = await axios.get(
+        `https://api.github.com/search/${searchType}?q=${searchQuery}&per_page=${resultsPerPage}&page=${page}`,
+        {
+          headers: {
+            Authorization: `token ${GITHUB_TOKEN}`,
+          },
+        }
+      );
+      const dataFound = response.data;
+      console.log({ dataFound });
 
-        return dataFound;
-      },
-      refetchOnWindowFocus: false,
-      keepPreviousData: true,
-    });
+      return dataFound;
+    },
+    refetchOnWindowFocus: false,
+    keepPreviousData: true,
+  });
 
-  return { data, isLoading, error, isError, isFetching, isPreviousData };
+  return { data, isLoading, error, isError, isPreviousData };
 };
