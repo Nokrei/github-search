@@ -13,6 +13,7 @@ export const UserCard = ({ userName, userAvatar, userLink }: Props) => {
           <Image
             width={20}
             height={20}
+            style={{ width: 20, height: 20 }}
             src={userAvatar}
             alt={`${userName} avatar`}
             className="rounded-full"
