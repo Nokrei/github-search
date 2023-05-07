@@ -27,7 +27,10 @@ export default function Category() {
 
   return (
     <Layout title={`Github Search | ${category} | ${query}`}>
-      <Searcher page={pageNumber} />
+      <Searcher
+        page={pageNumber}
+        description="Search users or repositories below"
+      />
       {isError && error?.message}
       {isLoading ? (
         <div className="flex flex-1 items-center justify-center">

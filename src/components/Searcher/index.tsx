@@ -5,9 +5,10 @@ import { AiFillGithub } from "react-icons/ai";
 
 type Props = {
   page?: number;
+  description: string;
 };
 
-export const Searcher = ({ page }: Props) => {
+export const Searcher = ({ page, description }: Props) => {
   const [queryValue, setQueryValue] = useState("");
   const [category, setCategory] = useState("users");
   const [debauncedQuery] = useDebounce(queryValue, 1000);
@@ -24,13 +25,14 @@ export const Searcher = ({ page }: Props) => {
         </div>
         <div>
           <h2 className="text-xl font-semibold">Github Searchbar</h2>
-          <p className="text-gray-500">Search users or repositories below</p>
+          <p className="text-gray-500">{description} </p>
         </div>
       </div>
       <div className="flex w-80">
         <input
           type="seaarch"
           className="w-full border"
+          placeholder="Start typing to search..."
           value={queryValue}
           onChange={(e) => setQueryValue(e.target.value)}
         />
