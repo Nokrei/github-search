@@ -1,6 +1,6 @@
 import { Searcher } from ".";
 import "@testing-library/jest-dom";
-import { render, screen } from "@testing-library/react";
+import { render, screen, act } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
 jest.mock("next/router", () => ({
@@ -35,7 +35,8 @@ describe("Repository Card", () => {
     render(searcher);
     const categoryOptions = screen.getByRole("combobox");
     expect(categoryOptions).toHaveValue("users");
-    await userEvent.selectOptions(categoryOptions, "repositories");
+    await act(() => userEvent.selectOptions(categoryOptions, "repositories"));
+
     expect(categoryOptions).toHaveValue("repositories");
   });
 });
