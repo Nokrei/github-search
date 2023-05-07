@@ -29,7 +29,7 @@ export default function Category({}: Props) {
     resultsPerPage: resultsPerPage,
   });
   const totalPages = Math.floor(
-    (data?.total_count + resultsPerPage - 1) / resultsPerPage
+    ((data?.total_count as number) + resultsPerPage - 1) / resultsPerPage
   );
 
   return (

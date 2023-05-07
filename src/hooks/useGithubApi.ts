@@ -17,8 +17,11 @@ type Repository = {
   updated_at: string;
 };
 
+type Item = User & Repository;
+
 type Data = {
-  items: User[] | Repository[];
+  items: Item[];
+  total_count: number;
 };
 
 type Props = {
