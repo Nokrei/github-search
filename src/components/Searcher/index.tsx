@@ -13,8 +13,7 @@ export const Searcher = ({ page }: Props) => {
   const [debauncedQuery] = useDebounce(queryValue, 1000);
   const router = useRouter();
   useEffect(() => {
-    debauncedQuery &&
-      router.push(`/${category}?query=${debauncedQuery}&page=${page}`);
+    debauncedQuery && router.push(`/${category}?query=${debauncedQuery}`);
   }, [debauncedQuery, page]);
 
   return (
