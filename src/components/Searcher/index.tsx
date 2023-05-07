@@ -4,22 +4,39 @@ import { useDebounce } from "use-debounce";
 import { AiFillGithub } from "react-icons/ai";
 
 type Props = {
-  page?: number;
   description: string;
+  defaultValue?: string;
+  defaultCategory?: string;
 };
 
-export const Searcher = ({ page, description }: Props) => {
-  const [queryValue, setQueryValue] = useState("");
-  const [category, setCategory] = useState("users");
+export const Searcher = ({
+  description,
+  defaultValue,
+  defaultCategory,
+}: Props) => {
+  const [queryValue, setQueryValue] = useState(defaultValue || "");
+  const [category, setCategory] = useState(defaultCategory || "users");
   const [debauncedQuery] = useDebounce(queryValue, 1000);
   const router = useRouter();
+
   useEffect(() => {
-    debauncedQuery && router.push(`/${category}?query=${debauncedQuery}`);
-  }, [debauncedQuery, page]);
+    // on landing page, we only want to push if there's a debauncedQuery
+    if (defaultValue === undefined && debauncedQuery) {
+      router.push(`/results/${category}?query=${debauncedQuery}`);
+    }
+
+    // on results - only if the value is different to the prefilled
+    if (
+      defaultValue &&
+      (debauncedQuery !== defaultValue || defaultCategory !== category)
+    ) {
+      router.push(`/results/${category}?query=${debauncedQuery}`);
+    }
+  }, [debauncedQuery, router, category, defaultValue, defaultCategory]);
 
   return (
     <div>
-      <div className="flex">
+      <div className="flex pb-3">
         <div className="flex w-14 items-center">
           <AiFillGithub size={40} />
         </div>
@@ -28,17 +45,17 @@ export const Searcher = ({ page, description }: Props) => {
           <p className="text-gray-500">{description} </p>
         </div>
       </div>
-      <div className="flex w-80">
+      <div className="flex w-96 max-w-full gap-2">
         <input
           type="seaarch"
-          className="w-full border"
+          className="w-full border p-2 shadow-sm"
           placeholder="Start typing to search..."
           value={queryValue}
           onChange={(e) => setQueryValue(e.target.value)}
         />
         <select
           name="options"
-          className="border"
+          className="border shadow-sm"
           value={category}
           onChange={(e) => setCategory(e.target.value)}
         >

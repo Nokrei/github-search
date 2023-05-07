@@ -1,14 +1,14 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 
-type User = {
+export type User = {
   id: number;
   avatar_url: string;
   login: string;
   html_url: string;
 };
 
-type Repository = {
+export type Repository = {
   id: number;
   name: string;
   description: string;
@@ -17,7 +17,7 @@ type Repository = {
   updated_at: string;
 };
 
-type Item = User & Repository;
+type Item = User | Repository;
 
 type Data = {
   items: Item[];
@@ -44,7 +44,7 @@ export const useGithubApi = ({
     Data,
     Error
   >({
-    queryKey: ["githubApi", searchQuery, page],
+    queryKey: ["githubApi", searchQuery, page, searchType],
     queryFn: async () => {
       console.log(`Fetching GitHub data for ${searchType}`);
       const response = await axios.get(

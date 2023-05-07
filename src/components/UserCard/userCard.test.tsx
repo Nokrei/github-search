@@ -2,24 +2,21 @@ import { UserCard } from ".";
 import "@testing-library/jest-dom";
 import { render, screen } from "@testing-library/react";
 
+const defaultProps = {
+  user: {
+    id: 1,
+    login: "User",
+    html_url: "https://user.com",
+    avatar_url: "https://avatars.githubusercontent.com/u/181?v=4",
+  },
+};
+
 describe("User Card", () => {
-  const userCard = (
-    <UserCard
-      userName="User"
-      userLink="https://user.com"
-      userAvatar="https://avatars.githubusercontent.com/u/181?v=4"
-    />
-  );
-  it("renders an avatar", () => {
+  const userCard = <UserCard {...defaultProps} />;
+  it("renders an avatar, alt text and correct link", () => {
     render(userCard);
     expect(screen.getByRole("img")).toBeInTheDocument();
-  });
-  it("provides a correct alt text to the avatar image", () => {
-    render(userCard);
     expect(screen.getByAltText("User avatar")).toBeInTheDocument();
-  });
-  it("renders a correct link", () => {
-    render(userCard);
     expect(screen.getByRole("link")).toHaveAttribute(
       "href",
       "https://user.com"

@@ -7,17 +7,20 @@ import Layout from "@/components/Layout";
 import { Searcher } from "@/components/Searcher";
 import { Pagination } from "@/components/Pagination";
 
+const resultsPerPage = 9;
+
 export default function Category() {
   const router = useRouter();
-
   const [pageNumber, setPageNumber] = useState(1);
-  const resultsPerPage = 9;
 
-  const { query, category } = router.query;
+  const { query, category } = router.query as {
+    query: string;
+    category: string;
+  };
 
   const { data, isLoading, isPreviousData, isError, error } = useGithubApi({
-    searchType: category as string,
-    searchQuery: query as string,
+    searchType: category,
+    searchQuery: query,
     page: pageNumber,
     resultsPerPage: resultsPerPage,
   });
@@ -28,8 +31,9 @@ export default function Category() {
   return (
     <Layout title={`Github Search | ${category} | ${query}`}>
       <Searcher
-        page={pageNumber}
         description="Search users or repositories below"
+        defaultValue={query}
+        defaultCategory={category}
       />
       {isError && error?.message}
       {isLoading ? (
@@ -38,29 +42,12 @@ export default function Category() {
         </div>
       ) : (
         <div className="grid flex-1 grid-cols-1 gap-3 py-5 lg:grid-cols-2 xl:grid-cols-3">
-          {category === "users"
-            ? data?.items.map((user) => {
-                return (
-                  <UserCard
-                    key={user.id}
-                    userAvatar={user.avatar_url}
-                    userName={user.login}
-                    userLink={user.html_url}
-                  />
-                );
-              })
-            : data?.items.map((repo) => {
-                return (
-                  <RepositoryCard
-                    key={repo.id}
-                    repoName={repo.name}
-                    repoDescription={repo.description}
-                    repoTopics={repo.topics}
-                    repoStars={repo.stargazers_count}
-                    repoUpdateDate={repo.updated_at}
-                  />
-                );
-              })}
+          {data?.items.map((item) => {
+            if ("avatar_url" in item) {
+              return <UserCard key={item.id} user={item} />;
+            }
+            return <RepositoryCard key={item.id} repository={item} />;
+          })}
         </div>
       )}
       <Pagination
