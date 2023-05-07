@@ -15,7 +15,7 @@ export const RepositoryCard = ({
   repoUpdateDate,
 }: Props) => {
   return (
-    <div className="h-56 w-full overflow-y-auto rounded bg-white p-2 shadow">
+    <div className="h-40 w-full overflow-y-auto rounded bg-white p-2 shadow">
       <h2 className="text-xl text-blue-500">{repoName}</h2>
       <p className="break-words">{repoDescription}</p>
       <div className="flex flex-wrap gap-1">
@@ -35,7 +35,9 @@ export const RepositoryCard = ({
           <AiOutlineStar size={20} />
           {repoStars}
         </div>
-        <span>{new Date(repoUpdateDate).toDateString()}</span>
+        {repoUpdateDate && (
+          <span>{new Date(repoUpdateDate).toDateString()}</span>
+        )}
       </div>
     </div>
   );

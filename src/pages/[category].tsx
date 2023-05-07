@@ -62,15 +62,15 @@ export default function Category() {
       )}
       <Pagination
         goToNextPage={() => {
-          setPageNumber((old) => Math.max(old - 1, 0));
+          setPageNumber((old) => old + 1);
         }}
         goToPrevPage={() => {
           if (!isPreviousData) {
-            setPageNumber((old) => old + 1);
+            setPageNumber((old) => Math.max(old - 1, 0));
           }
         }}
         isNextButtonDisabled={isPreviousData || pageNumber >= totalPages}
-        isPrevButtonDisabled={pageNumber === -1}
+        isPrevButtonDisabled={pageNumber === 1}
       />
     </Layout>
   );
