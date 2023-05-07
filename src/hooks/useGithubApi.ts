@@ -39,7 +39,7 @@ export const useGithubApi = ({ searchType, searchQuery, page }: Props) => {
     queryFn: async () => {
       console.log(`Fetching GitHub data for ${searchType}`);
       const response = await axios.get(
-        `https://api.github.com/search/${searchType}?q=${searchQuery}&per_page=6&page=${page}`,
+        `https://api.github.com/search/${searchType}?q=${searchQuery}&per_page=9&page=${page}`,
         {
           headers: {
             Authorization: `token ${GITHUB_TOKEN}`,

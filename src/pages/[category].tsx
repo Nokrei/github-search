@@ -30,7 +30,7 @@ export default function Category({}: Props) {
       {isLoading ? (
         <p>Loading...</p>
       ) : (
-        <div className="grid grid-cols-3 gap-3">
+        <div className="grid grid-cols-1 gap-3 py-5 lg:grid-cols-2 xl:grid-cols-3">
           {category === "users"
             ? data?.items.map((user) => {
                 return (
@@ -56,7 +56,7 @@ export default function Category({}: Props) {
               })}
         </div>
       )}
-      <div className="flex justify-center gap-3 pt-5">
+      <div className="flex justify-center gap-3">
         <button
           className="rounded bg-blue-600 p-2 px-3  text-white duration-100 hover:bg-blue-500 disabled:bg-blue-200"
           onClick={() => {

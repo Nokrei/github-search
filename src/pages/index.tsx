@@ -5,7 +5,7 @@ import { Searcher } from "@/components/Searcher";
 export default function Home() {
   return (
     <Layout>
-      <div className="flex justify-center">
+      <div className="flex h-full items-center justify-center">
         <Searcher />
       </div>
     </Layout>
