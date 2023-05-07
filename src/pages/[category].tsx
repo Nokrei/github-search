@@ -1,20 +1,13 @@
 import { useState } from "react";
 import { useRouter } from "next/router";
-import { NextPageContext } from "next/types";
 import { useGithubApi } from "@/hooks/useGithubApi";
 import { UserCard } from "@/components/UserCard";
 import { RepositoryCard } from "@/components/RepositoryCard";
 import Layout from "@/components/Layout";
 import { Searcher } from "@/components/Searcher";
-import { Button } from "@/components/button";
+import { Pagination } from "@/components/Pagination";
 
-type Props = {
-  category: string;
-  query: string;
-  page: number;
-};
-
-export default function Category({}: Props) {
+export default function Category() {
   const router = useRouter();
 
   const [pageNumber, setPageNumber] = useState(1);
@@ -67,30 +60,18 @@ export default function Category({}: Props) {
               })}
         </div>
       )}
-      <div className="flex justify-center gap-3">
-        <Button
-          buttonText="Prev"
-          onButtonClick={() => {
-            setPageNumber((old) => Math.max(old - 1, 0));
-          }}
-          isButtonDisabled={pageNumber === -1}
-        />
-        <Button
-          buttonText="Next"
-          onButtonClick={() => {
-            if (!isPreviousData) {
-              setPageNumber((old) => old + 1);
-            }
-          }}
-          isButtonDisabled={isPreviousData || pageNumber >= totalPages}
-        />
-      </div>
+      <Pagination
+        goToNextPage={() => {
+          setPageNumber((old) => Math.max(old - 1, 0));
+        }}
+        goToPrevPage={() => {
+          if (!isPreviousData) {
+            setPageNumber((old) => old + 1);
+          }
+        }}
+        isNextButtonDisabled={isPreviousData || pageNumber >= totalPages}
+        isPrevButtonDisabled={pageNumber === -1}
+      />
     </Layout>
   );
 }
-
-// export async function getServerSideProps(context: NextPageContext) {
-//   const { category, query, page } = context.query;
-
-//   return { props: { category, query, page } };
-// }
