@@ -35,7 +35,7 @@ export const Searcher = ({
   }, [debauncedQuery, router, category, defaultValue, defaultCategory]);
 
   return (
-    <div>
+    <div className="max-w-full">
       <div className="flex pb-3">
         <div className="flex w-14 items-center">
           <AiFillGithub size={40} />
