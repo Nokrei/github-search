@@ -46,7 +46,6 @@ export const useGithubApi = ({
   >({
     queryKey: ["githubApi", searchQuery, page, searchType],
     queryFn: async () => {
-      console.log(`Fetching GitHub data for ${searchType}`);
       const response = await axios.get(
         `https://api.github.com/search/${searchType}?q=${searchQuery}&per_page=${resultsPerPage}&page=${page}`,
         {
@@ -56,7 +55,6 @@ export const useGithubApi = ({
         }
       );
       const dataFound = response.data;
-      console.log({ dataFound });
 
       return dataFound;
     },
