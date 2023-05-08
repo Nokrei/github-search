@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { useRouter } from "next/router";
 import { useGithubApi } from "@/hooks/useGithubApi";
-import { UserCard } from "@/components/UserCard";
-import { RepositoryCard } from "@/components/RepositoryCard";
+import { UserCard } from "@/components/Molecules/UserCard";
+import { RepositoryCard } from "@/components/Molecules/RepositoryCard";
 import Layout from "@/components/Layout";
-import { Searcher } from "@/components/Searcher";
-import { Pagination } from "@/components/Pagination";
+import { Searcher } from "@/components/Organisms/Searcher";
+import { Pagination } from "@/components/Molecules/Pagination";
 
 const resultsPerPage = 9;
 

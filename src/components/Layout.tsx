@@ -1,6 +1,6 @@
 import Head from "next/head";
-import { Header } from "./Header";
-import { Footer } from "./Footer";
+import { Header } from "./Molecules/Header";
+import { Footer } from "./Molecules/Footer";
 
 type Props = {
   title: string;

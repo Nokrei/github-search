@@ -1,6 +1,6 @@
 import { AiFillGithub } from "react-icons/ai";
 import Layout from "@/components/Layout";
-import { Searcher } from "@/components/Searcher";
+import { Searcher } from "@/components/Organisms/Searcher";
 
 export default function Home() {
   return (

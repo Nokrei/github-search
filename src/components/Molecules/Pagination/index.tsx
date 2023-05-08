@@ -1,4 +1,4 @@
-import { Button } from "@/components/button";
+import { Button } from "@/components/Atoms/Button";
 
 type Props = {
   goToNextPage: () => void;
