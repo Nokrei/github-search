@@ -19,6 +19,8 @@ An app that lets you search for users and repositories on Github.
 
 ## Developer Notes
 
+<b>Note: I am making API calls with a personal GitHub token as authorization, stored as NEXT_PUBLIC_GITHUB_TOKEN in .env. It is possible to use the GitHub API without an authorization header, but then the rate limit is set to 10 request per min (30 with auth).</b>
+
 The search from Home page fires after user finishes typing - set to 1000ms with <a href="https://www.npmjs.com/package/use-debounce" target="_blank">use-debounce</a>, I considered making my own solution, but this is a tried and tested hook with over a million weekly downloads.
 
 To avoid repetition, search query is handled in the Searcher component, which contains the input and select fields as well as state values related to them. On debounce (and on category change when on the results page) a useEffect hook is triggered and user is pushed (next-router) to a dynamic route. This is the first thing I would change if I had more time / were to do it all over again - I do not like the source of truth being split between stateful values and URL, so I would attempt to keep it all in the URL. The useEffect also looks too messy to me.
