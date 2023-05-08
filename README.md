@@ -2,6 +2,8 @@
 
 An app that lets you search for users and repositories on Github.
 
+<a href="https://github-search-topaz.vercel.app/" target="_blank">Live link </a>
+
 ## Useful Scripts
 
 - npm install - install dependencies
