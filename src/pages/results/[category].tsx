@@ -14,9 +14,15 @@ export default function Category() {
   const [pageNumber, setPageNumber] = useState(1);
 
   const { query, category } = router.query as {
-    query: string;
+    query: string; // string[] | undefined
     category: string;
   };
+
+  // Can use type narrowing instead of type assertion here
+
+  if (typeof query !== "string" || typeof category !== "string") {
+    throw new Error("At least one of the query parameters is not a string!");
+  }
 
   const { data, isLoading, isPreviousData, isError, error } = useGithubApi({
     searchType: category,
@@ -30,12 +36,8 @@ export default function Category() {
 
   return (
     <Layout title={`Github Search | ${category} | ${query}`}>
-      <Searcher
-        description="Search users or repositories below"
-        defaultValue={query}
-        defaultCategory={category}
-      />
-      {isError && error?.message}
+      <Searcher description="Search users or repositories below" />
+      {isError && <p className="font-bold text-red-600">{error?.message}</p>}
       {isLoading ? (
         <div className="flex flex-1 items-center justify-center">
           <p className="text-xl font-semibold">Loading...</p>

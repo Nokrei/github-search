@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
+import { headers } from "next/dist/client/components/headers";
 
 export type User = {
   id: number;
@@ -46,17 +47,11 @@ export const useGithubApi = ({
   >({
     queryKey: ["githubApi", searchQuery, page, searchType],
     queryFn: async () => {
-      const response = await axios.get(
-        `https://api.github.com/search/${searchType}?q=${searchQuery}&per_page=${resultsPerPage}&page=${page}`,
-        {
-          headers: {
-            Authorization: `token ${GITHUB_TOKEN}`,
-          },
-        }
+      const { data } = await axios.get(
+        `/api/githubData?category=${searchType}&searchQuery=${searchQuery}&page=${page}&perPage=${resultsPerPage}`
       );
-      const dataFound = response.data;
 
-      return dataFound;
+      return data;
     },
     refetchOnWindowFocus: false,
     keepPreviousData: true,

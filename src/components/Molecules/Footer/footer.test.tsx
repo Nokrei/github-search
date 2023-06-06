@@ -9,4 +9,9 @@ describe("Footer", () => {
       screen.getByText("Created by Piotr Mrozowski for KMMRCE")
     ).toBeInTheDocument();
   });
+
+  it("snapshot test", () => {
+    const { container } = render(<Footer />);
+    expect(container.firstChild).toMatchSnapshot();
+  });
 });

@@ -1,38 +1,50 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useRouter } from "next/router";
-import { useDebounce } from "use-debounce";
+import { useDebouncedCallback } from "use-debounce";
 import { AiFillGithub } from "react-icons/ai";
 
 type Props = {
   description: string;
-  defaultValue?: string;
-  defaultCategory?: string;
 };
 
-export const Searcher = ({
-  description,
-  defaultValue,
-  defaultCategory,
-}: Props) => {
-  const [queryValue, setQueryValue] = useState(defaultValue || "");
-  const [category, setCategory] = useState(defaultCategory || "users");
-  const [debauncedQuery] = useDebounce(queryValue, 1000);
+export const Searcher = ({ description }: Props) => {
+  const [category, setCategory] = useState("users");
   const router = useRouter();
 
-  useEffect(() => {
-    // on landing page, we only want to push if there's a debauncedQuery
-    if (defaultValue === undefined && debauncedQuery) {
-      router.push(`/results/${category}?query=${debauncedQuery}`);
-    }
+  const debouncedChangeText = useDebouncedCallback(
+    (value) => router.push(`/results/${category}?query=${value}`),
+    1000
+  );
 
-    // on results - only if the value is different to the prefilled
-    if (
-      defaultValue &&
-      (debauncedQuery !== defaultValue || defaultCategory !== category)
-    ) {
-      router.push(`/results/${category}?query=${debauncedQuery}`);
-    }
-  }, [debauncedQuery, router, category, defaultValue, defaultCategory]);
+  // 1. user types in input field
+  // 2. after user finishes typing they get pused to results route
+  //   - need to update the router with what the user typed
+  //   - then need to push the user to that route
+  //   - when user is on results route, take what he typed from url and make a request to api
+  // 3. when the user searches from results pages, search should also fire on category change
+  //   - still need to update router, but can do it shallow - no need to push
+
+  // useQuery({
+  //   queryKey: ["pushToRoute", category, debauncedQuery],
+  //   queryFn:
+  //   enabled: !!debauncedQuery,
+  //   refetchOnWindowFocus: false,
+  // });
+
+  // useEffect(() => {
+  //   // on landing page, we only want to push if there's a debauncedQuery
+  //   if (defaultValue === undefined && debauncedQuery) {
+  //     router.push(`/results/${category}?query=${debauncedQuery}`);
+  //   }
+
+  //   // on results - only if the value is different to the prefilled
+  //   if (
+  //     defaultValue &&
+  //     (debauncedQuery !== defaultValue || defaultCategory !== category)
+  //   ) {
+  //     router.push(`/results/${category}?query=${debauncedQuery}`);
+  //   }
+  // }, [debauncedQuery, router, category, defaultValue, defaultCategory]);
 
   return (
     <div className="max-w-full">
@@ -50,8 +62,7 @@ export const Searcher = ({
           type="seaarch"
           className="w-full border p-2 shadow-sm"
           placeholder="Start typing to search..."
-          value={queryValue}
-          onChange={(e) => setQueryValue(e.target.value)}
+          onChange={(e) => debouncedChangeText(e.target.value)}
         />
         <select
           name="options"

@@ -8,9 +8,8 @@ jest.mock("next/router", () => ({
 }));
 
 describe("Repository Card", () => {
-  const searcher = <Searcher description="description" />;
   it("renders a heading, description, input field and select field", () => {
-    render(searcher);
+    render(<Searcher description="description" />);
     expect(screen.getByRole("heading")).toBeInTheDocument();
     expect(screen.getByText("description")).toBeInTheDocument();
     expect(
@@ -20,7 +19,7 @@ describe("Repository Card", () => {
   });
 
   it("renders 'users' as default select option and updates it correctly", async () => {
-    render(searcher);
+    render(<Searcher description="description" />);
     const categoryOptions = screen.getByRole("combobox");
     expect(categoryOptions).toHaveValue("users");
     await act(() => userEvent.selectOptions(categoryOptions, "repositories"));

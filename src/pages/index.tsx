@@ -1,4 +1,3 @@
-import { AiFillGithub } from "react-icons/ai";
 import Layout from "@/components/Layout";
 import { Searcher } from "@/components/Organisms/Searcher";
 

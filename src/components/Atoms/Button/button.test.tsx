@@ -8,7 +8,7 @@ describe("Button", () => {
       <Button
         buttonText="button"
         isButtonDisabled={false}
-        onButtonClick={jest.fn}
+        onButtonClick={() => null}
       />
     );
     expect(screen.getByRole("button")).toBeInTheDocument();
