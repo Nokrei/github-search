@@ -36,36 +36,3 @@ The user card varies from the provided design - most of the values required are 
 The repository card could use more polishing style wise, but the required info is there.
 
 The app is quite small and I did not have much time, so atomic design implementation is rudimentary.
-
-## Questions to prepare answers to:
-
-- why NextJS? why not Remix? why not Vite? Why not CRA?
-- why React Query? pros / cons
-  - do you the understand the queryKey in React Query
-  - why `refetchOnWindowFocus: false` `keepPreviousData: true` these were necessary
-- why use a debounce library? benefits of "battle-tested", check bundle size bundlephobia
-- thoughts around RTL + Jest?
-  - how you found it?
-  - what you would have tested with more time?
-  - mention why you used `getByRole`
-- double check if next config has the react-hooks-eslint
-- double check if you need `_document.tsx_`
-- thoughts / strategy around componment composition
-- note to self - should delete code not using e.g. api/hello.ts
-- pros / cons of "casting" in TS - forcing types
-- talk about why `if ("avatar_url" in item)` is necessary
-- at what point would you put the types from `useGithubApi` to a types folder
-- if you pass with nothing, will it still go through
-- what should `children: any;` this be?
-- overall thoughts on Storybook, pros and cons, if you'd used it before
-  - what you think it would be
-- talk about useEffect in `Searcher`
-  - its works, but.......
-  - how would you do this better?
-- have a YT around snapshot tests
-  - pros / cons
-    - its not worth testing components that do nothing
-- maybe have a think about a backup for when no avatar_url
-- double check with original reqs
-- be aware that your GITHUB_TOKEN is still exposed
-- moving that API call to BE would hide token from users
