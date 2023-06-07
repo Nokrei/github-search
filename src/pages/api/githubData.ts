@@ -1,6 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import axios from "axios";
 
+// rate limit is 30 with auth, 10 without
 const TOKEN = process.env.NEXT_PUBLIC_GITHUB_TOKEN;
 
 const githubData = async (req: NextApiRequest, res: NextApiResponse) => {

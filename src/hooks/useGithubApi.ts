@@ -32,9 +32,6 @@ type Props = {
   page: number;
 };
 
-// rate limit is 30 with auth, 10 without
-const GITHUB_TOKEN = process.env.NEXT_PUBLIC_GITHUB_TOKEN;
-
 export const useGithubApi = ({
   searchType,
   searchQuery,

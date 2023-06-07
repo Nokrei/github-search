@@ -14,11 +14,11 @@ export default function Category() {
   const [pageNumber, setPageNumber] = useState(1);
 
   const { query, category } = router.query as {
-    query: string; // string[] | undefined
+    query: string;
     category: string;
   };
 
-  // Can use type narrowing instead of type assertion here
+  // Need better error handling here
 
   if (typeof query !== "string" || typeof category !== "string") {
     throw new Error("At least one of the query parameters is not a string!");

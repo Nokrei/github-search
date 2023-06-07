@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Footer snapshot test 1`] = `
+<footer
+  class="bg-purple-900 p-2 text-center"
+>
+  <p
+    class="text-white"
+  >
+    Created by Piotr Mrozowski for KMMRCE
+  </p>
+</footer>
+`;

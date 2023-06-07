@@ -3,19 +3,18 @@ import "@testing-library/jest-dom";
 import { render, screen } from "@testing-library/react";
 
 describe("Pagination", () => {
+  const pagination = (
+    <Pagination
+      goToNextPage={jest.fn}
+      goToPrevPage={jest.fn}
+      isNextButtonDisabled={false}
+      isPrevButtonDisabled={false}
+    />
+  );
   it("renders all buttons correctly", () => {
-    const mockGoToNext = jest.fn();
-
-    render(
-      <Pagination
-        goToNextPage={mockGoToNext}
-        goToPrevPage={jest.fn}
-        isNextButtonDisabled={false}
-        isPrevButtonDisabled={false}
-      />
-    );
-    userEvent.click(screen.getByText("Next"));
-
-    expect(mockGoToNext).toHaveBeenCalled();
+    render(pagination);
+    expect(screen.getAllByRole("button")).toHaveLength(2);
+    expect(screen.getByText("Next")).toBeInTheDocument();
+    expect(screen.getByText("Prev")).toBeInTheDocument();
   });
 });

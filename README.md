@@ -36,3 +36,10 @@ The user card varies from the provided design - most of the values required are 
 The repository card could use more polishing style wise, but the required info is there.
 
 The app is quite small and I did not have much time, so atomic design implementation is rudimentary.
+
+## Changelog
+
+- Replaced useEffect in Searcher component with useDebouncedCallback
+- Moved the request being made to the GitHub API to an API route - the token is no longer exposed to the client
+- Replaced type casting with type narrowing in dynamic route - beter solution than type casting, but would need better error handling
+- Added snapshot test for footer

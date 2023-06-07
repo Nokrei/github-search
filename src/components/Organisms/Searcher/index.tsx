@@ -16,36 +16,6 @@ export const Searcher = ({ description }: Props) => {
     1000
   );
 
-  // 1. user types in input field
-  // 2. after user finishes typing they get pused to results route
-  //   - need to update the router with what the user typed
-  //   - then need to push the user to that route
-  //   - when user is on results route, take what he typed from url and make a request to api
-  // 3. when the user searches from results pages, search should also fire on category change
-  //   - still need to update router, but can do it shallow - no need to push
-
-  // useQuery({
-  //   queryKey: ["pushToRoute", category, debauncedQuery],
-  //   queryFn:
-  //   enabled: !!debauncedQuery,
-  //   refetchOnWindowFocus: false,
-  // });
-
-  // useEffect(() => {
-  //   // on landing page, we only want to push if there's a debauncedQuery
-  //   if (defaultValue === undefined && debauncedQuery) {
-  //     router.push(`/results/${category}?query=${debauncedQuery}`);
-  //   }
-
-  //   // on results - only if the value is different to the prefilled
-  //   if (
-  //     defaultValue &&
-  //     (debauncedQuery !== defaultValue || defaultCategory !== category)
-  //   ) {
-  //     router.push(`/results/${category}?query=${debauncedQuery}`);
-  //   }
-  // }, [debauncedQuery, router, category, defaultValue, defaultCategory]);
-
   return (
     <div className="max-w-full">
       <div className="flex pb-3">
