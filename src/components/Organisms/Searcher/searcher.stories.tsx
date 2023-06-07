@@ -11,7 +11,6 @@ type Story = StoryObj<typeof Searcher>;
 
 export const Default: Story = {
   args: {
-    defaultCategory: "Users",
     description: "Search users or repositories below",
   },
 };
